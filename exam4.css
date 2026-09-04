@@ -1,0 +1,160 @@
+/* ==========================================================================
+   Typing Game — 귀여운 테마
+   Palette: 딸기우유 핑크 #FFD9E3 / 라벤더 #E4D9FF / 민트 #D6F5E3
+            포인트 코랄 #FF8FAB / 텍스트 자주빛 #6B4E71
+   Font: Jua (둥글둥글한 한글 손글씨 느낌)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 40px 20px;
+    font-family: 'Jua', sans-serif;
+    color: #6B4E71;
+    text-align: center;
+    background: radial-gradient(circle at 20% 20%, #FFE9F0 0%, #F4E9FF 45%, #E3F7EC 100%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+
+/* 안내 문구 */
+body::before {
+    content: "";
+}
+
+/* 타겟 문자를 감싸는 말풍선 카드 */
+#targetChar {
+    font-size: 64px;
+    font-weight: normal;
+    min-width: 140px;
+    padding: 14px 36px;
+    margin: 6px 0 4px;
+    background: #FFFFFF;
+    border: 4px solid #FFB6C9;
+    border-radius: 32px;
+    box-shadow: 0 8px 0 #FFD3DE, 0 12px 20px rgba(255, 143, 171, 0.25);
+    color: #FF6F91;
+    animation: pop-breathe 2.4s ease-in-out infinite;
+}
+
+@keyframes pop-breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #targetChar { animation: none; }
+}
+
+/* 점수 뱃지 */
+#score {
+    font-size: 24px;
+    padding: 10px 28px;
+    background: #FFFFFF;
+    border: 3px solid #C9B6FF;
+    border-radius: 999px;
+    box-shadow: 0 4px 0 #E4D9FF;
+    color: #8B6FD1;
+}
+
+/* 타이머 뱃지 */
+#timer {
+    font-size: 18px;
+    padding: 8px 22px;
+    background: #FFFFFF;
+    border: 3px solid #9BE3C4;
+    border-radius: 999px;
+    box-shadow: 0 4px 0 #D6F5E3;
+    color: #4FAF80;
+}
+
+/* 입력창 */
+#userInput {
+    width: 180px;
+    font-size: 22px;
+    font-family: 'Jua', sans-serif;
+    text-align: center;
+    padding: 12px 10px;
+    border: 3px solid #FFC2D1;
+    border-radius: 20px;
+    outline: none;
+    background: #FFF9FB;
+    color: #6B4E71;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#userInput::placeholder {
+    color: #E3B8C6;
+    font-size: 14px;
+}
+
+#userInput:focus {
+    border-color: #FF8FAB;
+    box-shadow: 0 0 0 4px rgba(255, 143, 171, 0.25);
+}
+
+/* 버튼 공통 */
+button {
+    font-family: 'Jua', sans-serif;
+    font-size: 17px;
+    padding: 12px 28px;
+    margin: 4px 8px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    color: #FFFFFF;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:active {
+    transform: translateY(2px);
+}
+
+#startButton {
+    background: #FF8FAB;
+    box-shadow: 0 5px 0 #E36C8C;
+}
+
+#startButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 0 #E36C8C;
+}
+
+#resetButton {
+    background: #B7A6F2;
+    box-shadow: 0 5px 0 #9683DB;
+}
+
+#resetButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 0 #9683DB;
+}
+
+button:focus-visible,
+#userInput:focus-visible {
+    outline: 3px solid #6B4E71;
+    outline-offset: 2px;
+}
+
+/* 모바일 대응 */
+@media (max-width: 420px) {
+    #targetChar {
+        font-size: 48px;
+        padding: 10px 24px;
+    }
+    button {
+        padding: 10px 22px;
+        font-size: 15px;
+    }
+}
