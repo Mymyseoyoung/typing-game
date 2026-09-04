@@ -11,7 +11,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="exam4.css">
     <title>Typing Game</title>
     <style>
         body {
@@ -39,9 +38,6 @@
     <div id="targetChar"></div>
     <div id="score">점수: 0</div>
     <div id="timer">남은 시간: 20</div>
-    <input type="text" id="userInput" placeholder="문자를 입력하세요" maxlength="1" autocomplete="off" autofocus>
-    
-    <br><br>
     <button id="startButton" onclick="startGame()">Start</button>
     <button id="resetButton" onclick="resetGame()">Reset</button>
 
@@ -56,7 +52,6 @@
         const targetCharElement = document.getElementById('targetChar');
         const scoreElement = document.getElementById('score');
         const timerElement = document.getElementById('timer');
-        const userInputElement = document.getElementById('userInput');
 
         // 점수 계산에서 제외할 키 리스트
         const excludedKeys = ['Shift', 'CapsLock'];
@@ -65,7 +60,7 @@
         function getRandomChar() {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             return chars[Math.floor(Math.random() * chars.length)];
-        }x
+        }
 
         // 새로운 타겟 문자를 설정하는 함수
         function setNewTargetChar() {
@@ -74,20 +69,24 @@
 
         // 입력된 문자를 확인하고 점수를 업데이트하는 함수
         function checkInput(event) {
-            if (!isGameRunning || event.key.length !== 1) return;
-
             const inputChar = event.key;
 
-            // 정답일 때만 점수를 추가하고, 오답은 점수에 반영하지 않음
-            if (inputChar === targetCharElement.innerText) {
-                score += 10;
+            // CapsLock, Shift 등의 키는 무시
+            if (excludedKeys.includes(inputChar)) {
+                return;
             }
+
+            // 입력 문자가 타겟 문자와 일치하면 점수 증가, 아니면 점수 감소
+            /* while(score >= 0){
+                    score += (inputChar === targetCharElement.innerText) ? 10 : -5;
+            }*/arguments
+           if(inputChar === targetCharElement.innerText){
+                score += 10; 
+           }
 
             // 업데이트된 점수와 새로운 타겟 문자 표시
             scoreElement.innerText = `점수: ${score}`;
             setNewTargetChar();
-            userInputElement.value = '';
-            event.preventDefault();
         }
 
         // 타이머를 업데이트하고 시간이 다 되면 게임을 종료하는 함수
@@ -105,7 +104,7 @@
             clearInterval(gameInterval);
             targetCharElement.innerText = ''; // 타겟 문자 제거
             timerElement.innerText = `시간 초과! 최종 점수: ${score}`;
-            userInputElement.removeEventListener('keydown', checkInput); // 입력 이벤트 제거
+            document.removeEventListener('keydown', checkInput); // 키 입력 이벤트 제거
             isGameRunning = false; // 게임 실행 상태를 종료로 설정
         }
 
@@ -121,8 +120,7 @@
             setNewTargetChar(); // 첫 번째 타겟 문자 설정
 
             gameInterval = setInterval(updateTimer, 1000); // 1초마다 타이머 업데이트
-            userInputElement.addEventListener('keydown', checkInput); // 키 입력 이벤트 추가
-            userInputElement.focus();
+            document.addEventListener('keydown', checkInput); // 키 입력 이벤트 추가
         }
 
         // 게임을 리셋하는 함수
@@ -133,7 +131,7 @@
             scoreElement.innerText = '점수: 0';
             timerElement.innerText = '남은 시간: 20';
             targetCharElement.innerText = ''; // 타겟 문자 초기화
-            userInputElement.removeEventListener('keydown', checkInput); // 키 입력 이벤트 제거
+            document.removeEventListener('keydown', checkInput); // 키 입력 이벤트 제거
             isGameRunning = false; // 게임 실행 상태를 종료로 설정
         }
 
